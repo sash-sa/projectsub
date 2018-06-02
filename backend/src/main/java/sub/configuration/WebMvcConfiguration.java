@@ -1,4 +1,4 @@
-package vckp.lk.client.configuration;
+package sub.configuration;
 
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -20,9 +20,9 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:8080")
-//                .allowedHeaders("*")
-//                .allowedMethods("*")
+                .allowedOrigins("http://*:*")
+                .allowedHeaders("*")
+                .allowedMethods("*")
 //                .exposedHeaders(
 //                        "Authorization",
 //                        "Access-Control-Allow-Origin",
@@ -31,12 +31,12 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 //                        "Access-Control-Max-Age",
 //                        "Access-Control-Request-Headers",
 //                        "Access-Control-Request-Method")
-//                .allowCredentials(false)
+                .allowCredentials(true)
 //
 //        .maxAge(5000)
         ;
     }
-//
+
     @Bean
     public FilterRegistrationBean corsFilterss() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

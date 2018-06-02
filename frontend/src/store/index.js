@@ -43,19 +43,7 @@ export default new Vuex.Store({
   },
   mutations: {
     authenticated: (state, payload) => {
-      // var axiosConfig = {
-      //   headers: {
-      //     "Content-Type": "application/x-www-form-urlencoded"
-      //   },
-      //   auth: {
-      //     username: "lcClient",
-      //     password: "sjidghlksdjfghlksdjfghklsdjfghlskdjflskdf"
-      //   },
-      //   method: "POST",
-      //   // url: `http://vckpmon.vckp.ru:8088/oauth/token?username=${payload.login}&password=${payload.password}&grant_type=password`
-      //   url: `http://localhost:8088/oauth/token?username=${payload.login}&password=${payload.password}&grant_type=password`
-      // };
-      ajax.auth().then(response => {
+      ajax.auth(payload).then(response => {
         state.authenticated.isAuthenticated = true;
         state.authenticated.user.login = payload.login;
         state.authenticated.access_token = response.data.access_token;
@@ -73,12 +61,15 @@ export default new Vuex.Store({
         })
     },
     isAuthenticated(state) {
-      if (state.authenticated == undefined) {
+      if (state.authenticated.access_token == "") {
         if (localStorage.getItem("authenticated") != null) {
           state.authenticated = JSON.parse(localStorage.getItem("authenticated"))
           ajax.setToken(state.authenticated.access_token);
         }
       }
+    },
+    notAuthenticated(state) {
+      state.authenticated.isAuthenticated = false;
     },
     logout(state) {
       localStorage.removeItem("authenticated");
@@ -119,9 +110,9 @@ export default new Vuex.Store({
       state.questionPageSize = payload.question.totalPages - 1;
     },
     setProfile(state, payload) {
-      state.profileUser=[];
-      state.profileOrganisation=[];
-      state.profileOrganisationUser=[];
+      state.profileUser = [];
+      state.profileOrganisation = [];
+      state.profileOrganisationUser = [];
       state.profileUser.push({key: 'Логин', value: payload.singleUser.login})
       state.profileUser.push({key: 'ФИО', value: payload.singleUser.fullName})
       state.profileUser.push({key: 'Email', value: payload.singleUser.notificationEMail})

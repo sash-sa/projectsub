@@ -12,6 +12,8 @@ import Position from "@/components/Position/PositionView";
 import CreatePosition from "@/components/Position/CreatePositionView";
 import Status from "@/components/Status/StatusView";
 import CreateStatus from "@/components/Status/CreateStatusView";
+import Operator from "@/components/Operator/OperatorView";
+import CreateOperator from "@/components/Operator/CreateOperator";
 import Store from '../store/index';
 
 Vue.use(Router)
@@ -20,7 +22,7 @@ Vue.use(Router)
 const router = new Router({
   routes: [
     {
-      path: '/index',
+      path: '/',
       name: 'Index',
       component: Index
     },
@@ -78,9 +80,22 @@ const router = new Router({
       path: "/schedule",
       name: "Shedule",
       component: Shedule
-    }
+    },
+    {
+      path: "/operator",
+      name: "Operator",
+      component: Operator
+    },
+    {
+      path: "/createOperator",
+      name: "CreateOperator",
+      component: CreateOperator
+    },
   ]
 })
-
+router.beforeResolve((to, from, next) => {
+  Store.commit("isAuthenticated");
+  next();
+})
 
 export default router;

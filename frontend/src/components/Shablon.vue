@@ -10,6 +10,8 @@
           <v-avatar color="indigo">
             <v-icon dark>account_circle</v-icon>
           </v-avatar>
+          <br/>
+          <v-chip>Login : {{this.$store.state.authenticated.user.login}}</v-chip>
         </center>
         <br/><br/><br/>
       </template>
@@ -68,12 +70,13 @@
 
 <script>
 
+
   export default {
     data: () => ({
       oldYear: new Date().getFullYear(),
       drawer: null,
       items: [
-        {text: 'Главная', path: '/index', icon: "home"},
+        {text: 'Главная', path: '/', icon: "home"},
         {text: 'Заявки', path: '/issue', icon: "home"},
         {text: 'Отчеты', path: '/report', icon: "home"},
         {text: 'Рассписание', path: '/schedule', icon: "home"},
@@ -83,7 +86,7 @@
           children: [
             {text: 'Работники', path: '/worker', icon: "home"},
             {text: 'Должности', path: '/position', icon: "home"},
-            {text: 'Операторы', path: '/position', icon: "home"},
+            {text: 'Операторы', path: '/operator', icon: "home"},
             {text: 'Статусы', path: '/status', icon: "home"},
             {text: 'История', path: '/historyUpload'}
           ]

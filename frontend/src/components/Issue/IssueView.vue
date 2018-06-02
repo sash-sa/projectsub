@@ -17,6 +17,7 @@ l
           <td class="text-xs-left">{{ props.item.description }}</td>
           <td class="text-xs-left">{{ props.item.issueStatus != null ? props.item.issueStatus.name : '' }}</td>
           <td class="text-xs-left">{{ props.item.worker != null ? props.item.worker.fullName : ''}}</td>
+          <td class="text-xs-left">{{ props.item.user != null ? props.item.user.login : ''}}</td>
           <td class="text-xs-left">{{ dateConvert(props.item.created)}}</td>
           <td class="text-xs-left">{{ dateConvert(props.item.update)}}</td>
           <td class="text-xs-center">
@@ -105,6 +106,7 @@ l
           {text: 'Описание', value: 'description', align: "center"},
           {text: 'Статус', value: 'issueStatus', align: "center"},
           {text: 'Исполнитель', value: 'worker', align: "center"},
+          {text: 'Оператор', value: 'user', align: "center"},
           {text: 'Дата создания', value: 'created', align: "center"},
           {text: 'Дата обновления', value: 'update', align: "center"},
           {text: 'Действия'},

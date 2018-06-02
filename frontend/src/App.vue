@@ -17,9 +17,9 @@
     },
     methods: {
       isAuthenticated() {
-        // this.$store.commit("isAuthenticated");
-        // return this.$store.state.authenticated.isAuthenticated ==false ? "login" : "shablon";
-        return "shablon"
+        this.$store.commit("isAuthenticated");
+        return this.$store.state.authenticated.isAuthenticated == false ? "login" : "shablon";
+//        return "shablon"
       }
     },
     data: () => ({})
@@ -28,7 +28,7 @@
 </script>
 
 <style>
-body{
-  background-color: #0074D9;
-}
+  body {
+    background-color: #0074D9;
+  }
 </style>

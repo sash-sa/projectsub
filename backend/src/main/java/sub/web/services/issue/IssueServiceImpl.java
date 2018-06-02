@@ -1,14 +1,17 @@
 package sub.web.services.issue;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.stereotype.Component;
 import sub.db.dto.IssueDto;
+import sub.db.dto.IssueFullDto;
 import sub.db.entity.Configuration;
 import sub.db.entity.Issue;
 import sub.db.entity.IssueStatus;
 import sub.db.repo.ConfigurationRepository;
 import sub.db.repo.IssueRepository;
 import sub.db.repo.IssueStatusRepository;
+import sub.web.services.operator.UserService;
 
 import java.util.*;
 
@@ -23,9 +26,12 @@ public class IssueServiceImpl implements IssueService {
     @Autowired
     private IssueStatusRepository issueStatusRepository;
 
+    @Autowired
+    private UserService userService;
+
     @Override
-    public List<Issue> get() {
-        return issueRepository.findAll();
+    public List<IssueFullDto> get() {
+        return issueRepository.all();
     }
 
     @Override
@@ -34,16 +40,18 @@ public class IssueServiceImpl implements IssueService {
     }
 
     @Override
-    public Issue create(Issue issue) {
+    public Issue create(OAuth2Authentication authentication,Issue issue) {
         issue.setCreated(new Date());
         List<Configuration> configurations = (List) configurationRepository.findAll();
         issue.setIssueStatus(configurations.size() > 0 ? configurations.get(0).getIssueStatus() : null);
-        return issueRepository.save(issue);
+        issue.setUser(userService.getUserAuth(authentication));
+        return issueRepository.saveAndFlush(issue);
     }
 
     @Override
-    public Issue update(Issue issue) {
+    public Issue update(OAuth2Authentication authentication,Issue issue) {
         issue.setUpdate(new Date());
+        issue.setUser(userService.getUserAuth(authentication));
         issueRepository.save(issue);
         return null;
     }

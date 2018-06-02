@@ -7,14 +7,15 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import sub.db.dto.IssueDto;
+import sub.db.dto.IssueFullDto;
 import sub.db.entity.Issue;
 
 import java.util.List;
 
 public interface IssueRepository extends JpaRepository<Issue,Long> {
-    @EntityGraph(attributePaths = {"issueStatus","worker"})
+    @EntityGraph(attributePaths = {"issueStatus","worker","user"})
     @Query("select issue from Issue issue order by issue.id")
-    List<Issue> findAll();
+    List<IssueFullDto> all();
 
 
     @EntityGraph(attributePaths = {"issueStatus","worker"})

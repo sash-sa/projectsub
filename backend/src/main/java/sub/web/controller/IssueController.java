@@ -3,6 +3,7 @@ package sub.web.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 import sub.db.entity.Issue;
@@ -32,13 +33,13 @@ public class IssueController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity create(@RequestBody Issue issue) {
-        return new ResponseEntity(issueService.create(issue), HttpStatus.OK);
+    public ResponseEntity create(OAuth2Authentication authentication,@RequestBody Issue issue) {
+        return new ResponseEntity(issueService.create(authentication,issue), HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public ResponseEntity update(@RequestBody Issue issue) {
-        return new ResponseEntity(issueService.update(issue), HttpStatus.OK);
+    public ResponseEntity update(OAuth2Authentication authentication,@RequestBody Issue issue) {
+        return new ResponseEntity(issueService.update(authentication,issue), HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")

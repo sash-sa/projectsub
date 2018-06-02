@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Value;
 
 import java.util.Date;
 
-public interface IssueDto {
+public interface IssueFullDto {
+    Long getId();
+
     String getFio();
 
     String getPhone();
@@ -21,10 +23,13 @@ public interface IssueDto {
     String getDescription();
 
     @Value("#{target.issueStatus}")
-    IssueStatusDto getIssueStatus();
+    IssueStatusForIssueFull getIssueStatus();
 
     @Value("#{target.worker}")
-    WorkerDto getWorker();
+    WorkerForIssueFull getWorker();
+
+    @Value("#{target.user}")
+    UserDto getUser();
 
     interface IssueStatusDto {
         Long getId();
@@ -33,6 +38,4 @@ public interface IssueDto {
     interface WorkerDto {
         Long getId();
     }
-
-
 }

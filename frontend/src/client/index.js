@@ -1,20 +1,20 @@
 import axios from 'axios';
+import store from '../store/index';
 
-const baseURL = API_BASE_URL;
-
+const baseURL = API_BASE_URL
 const client = axios.create({
   baseURL
 });
 
-// client.interceptors.response.use(function (response) {
-//   return response;
-// }, function (error) {
-//   if (error.response.status === 401) {
-//       console.log("+++++++++++++++auth+++++++++");
-//     // store.commit()
-//   }
-//   return Promise.reject(error);
-// });
+client.interceptors.response.use(function (response) {
+  return response;
+}, function (error) {
+  if (error.response.status === 401) {
+    console.log("+++++++++++++++auth+++++++++");
+    store.commit("notAuthenticated");
+  }
+  return Promise.reject(error);
+});
 
 // client.interceptors.request.use(function (config, store) {
 //   if(localStorage.getItem("authenticated")!=undefined)setToken(JSON.parse(localStorage.getItem("authenticated")).access_token)
@@ -23,21 +23,9 @@ const client = axios.create({
 //   return Promise.reject(error);
 // });
 
-// const setToken = (token) => client.defaults.headers.common["Authorization"] = "Bearer " + token;
+const setToken = (token) => client.defaults.headers.common["Authorization"] = "Bearer " + token;
 
-//
-// const auth = (axiosConfig) => client.request({
-//   headers: {
-//     "Content-Type": "application/x-www-form-urlencoded"
-//   },
-//   auth: {
-//     username: "lcClient",
-//     password: "sjidghlksdjfghlksdjfghklsdjfghlskdjflskdf"
-//   },
-//   method: "POST",
-//   // url: `http://vckpmon.vckp.ru:8088/oauth/token?username=${payload.login}&password=${payload.password}&grant_type=password`
-//   url: `http://localhost:8088/oauth/token?username=7707049388-1&password=123456&grant_type=password`
-// })
+const getCurrentUser=()=>client.get("/operator");
 
 const getIssue=()=>client.get("/issue");
 
@@ -73,8 +61,33 @@ const editStatus=(status)=>client.put("/status",status);
 
 const removeStatus=(id)=>client.delete(`/status/${id}`)
 
+const getOperator=()=>client.get("/operator/all")
+
+const createOperator=(operator)=>client.post("/operator",operator)
+
+const removeOperator=(id)=>client.delete(`/operator/${id}`)
+
+const editOperator=(operator)=>client.put("/operator",operator);
+
+const getRole=()=>client.get("/operator/role")
+
+const auth = (payload) => client.request({
+  headers: {
+    "Content-Type": "application/x-www-form-urlencoded"
+  },
+  auth: {
+    username: "lcClient",
+    password: "sjidghlksdjfghlksdjfghklsdjfghlskdjflskdf"
+  },
+  method: "POST",
+  // url: `http://vckpmon.vckp.ru:8088/oauth/token?username=${payload.login}&password=${payload.password}&grant_type=password`
+  url: `http://localhost:8088/oauth/token?username=${payload.login}&password=${payload.password}&grant_type=password`
+})
+
 export default {
-  // auth,
+  auth,
+  setToken,
+  getCurrentUser,
   getIssue,
   getIssueForStatus,
   getIssueUniq,
@@ -91,7 +104,12 @@ export default {
   createStatus,
   getStatus,
   editStatus,
-  removeStatus
+  removeStatus,
+  getOperator,
+  createOperator,
+  removeOperator,
+  editOperator,
+  getRole
 };
 
 

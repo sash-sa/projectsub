@@ -76,7 +76,7 @@
           } : null
         }
         ajax.createIssue(issue).then(response => {
-          this.$router.push("/")
+          this.$router.push("/issue")
         }).catch(error => {
           console.log(error)
         })
