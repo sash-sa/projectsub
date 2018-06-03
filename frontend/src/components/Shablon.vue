@@ -7,13 +7,15 @@
     >
       <template class="text-xs-center" style="text-align: center;">
         <center>
-          <v-avatar color="indigo">
+          <v-avatar color="blue darken-2">
             <v-icon dark>account_circle</v-icon>
           </v-avatar>
           <br/>
-          <v-chip>Login : {{this.$store.state.authenticated.user.login}}</v-chip>
+          <v-chip>Login : <span style="font-weight: bold;font-size: 15px"> {{this.$store.state.authenticated.user.login}}</span></v-chip>
         </center>
-        <br/><br/><br/>
+        <br/>
+        <hr size="5"/>
+       <br/><br/>
       </template>
       <v-spacer></v-spacer>
       <template v-for="item in items">
@@ -54,7 +56,7 @@
         </v-list>
       </template>
     </v-navigation-drawer>
-    <v-toolbar color="indigo" dark fixed app>
+    <v-toolbar color="blue darken-2" dark fixed app>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
     </v-toolbar>
     <v-content>
@@ -62,7 +64,7 @@
         <router-view></router-view>
       </v-container>
     </v-content>
-    <v-footer color="indigo" app>
+    <v-footer color="blue darken-2" height="70" app>
       <span class="white--text">&copy; {{oldYear}}</span>
     </v-footer>
   </v-app>
@@ -77,18 +79,19 @@
       drawer: null,
       items: [
         {text: 'Главная', path: '/', icon: "home"},
-        {text: 'Заявки', path: '/issue', icon: "home"},
-        {text: 'Отчеты', path: '/report', icon: "home"},
-        {text: 'Рассписание', path: '/schedule', icon: "home"},
+        {text: 'Заявки', path: '/issue', icon: "dialpad"},
+        {text: 'Отчеты', path: '/report', icon: "report"},
+        {text: 'Рассписание', path: '/schedule', icon: "call_split"},
 
         {
-          text: 'Настройки', path: '/position', icon: "home",
+          text: 'Настройки',
           children: [
-            {text: 'Работники', path: '/worker', icon: "home"},
-            {text: 'Должности', path: '/position', icon: "home"},
-            {text: 'Операторы', path: '/operator', icon: "home"},
-            {text: 'Статусы', path: '/status', icon: "home"},
-            {text: 'История', path: '/historyUpload'}
+            {text: 'Общие', path: '/baseConfiguration', icon: "present_to_all"},
+            {text: 'Работники', path: '/worker', icon: "present_to_all"},
+            {text: 'Должности', path: '/position', icon: "present_to_all"},
+            {text: 'Операторы', path: '/operator', icon: "present_to_all"},
+            {text: 'Статусы', path: '/status', icon: "present_to_all"},
+            {text: 'История', path: '/historyUpload', icon: "present_to_all"}
           ]
         }
       ]
@@ -109,20 +112,4 @@
     margin-left: 20px
   }
 
-  #nprogress .bar {
-    height: 3px;
-    background: red;
-  }
-
-  #nprogress .spinner-icon {
-    border-top-color: red;
-    border-left-color: red;
-  }
-
-  .textVckp {
-    font-size: 15px;
-    text-transform: uppercase;
-    color: #060606;
-    white-space: nowrap;
-  }
 </style>

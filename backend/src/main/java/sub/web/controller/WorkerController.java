@@ -11,7 +11,7 @@ import sub.web.services.worker.WorkerService;
 import java.util.List;
 
 @Component
-@CrossOrigin(origins = { "http://localhost:8080","http://localhost:8081" }, maxAge = 3000)
+@CrossOrigin(origins = {"**"}, maxAge = 3000)
 @RequestMapping("/api/worker")
 public class WorkerController {
 

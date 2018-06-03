@@ -1,7 +1,6 @@
 <template>
   <keep-alive>
     <component v-bind:is="isAuthenticated()"/>
-
   </keep-alive>
 </template>
 

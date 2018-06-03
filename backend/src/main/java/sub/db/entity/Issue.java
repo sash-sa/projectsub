@@ -36,6 +36,13 @@ public class Issue implements Serializable{
     @Column(name = "address")
     private String address;
 
+    @Column(name = "timeExecution")
+    private Date timeExecution;
+
+    @Column(name = "decision")
+    private String decision;
+
+
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "issue_Fk")
     private List<IssueComments> comments;
@@ -146,5 +153,21 @@ public class Issue implements Serializable{
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Date getTimeExecution() {
+        return timeExecution;
+    }
+
+    public void setTimeExecution(Date timeExecution) {
+        this.timeExecution = timeExecution;
+    }
+
+    public String getDecision() {
+        return decision;
+    }
+
+    public void setDecision(String decision) {
+        this.decision = decision;
     }
 }

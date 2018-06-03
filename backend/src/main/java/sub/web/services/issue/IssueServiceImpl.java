@@ -11,6 +11,8 @@ import sub.db.entity.IssueStatus;
 import sub.db.repo.ConfigurationRepository;
 import sub.db.repo.IssueRepository;
 import sub.db.repo.IssueStatusRepository;
+import sub.db.repo.WorkerRepository;
+import sub.web.services.configuration.ConfigurationService;
 import sub.web.services.operator.UserService;
 
 import java.util.*;
@@ -24,10 +26,16 @@ public class IssueServiceImpl implements IssueService {
     private ConfigurationRepository configurationRepository;
 
     @Autowired
+    private ConfigurationService configurationService;
+
+    @Autowired
     private IssueStatusRepository issueStatusRepository;
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private WorkerRepository workerRepository;
 
     @Override
     public List<IssueFullDto> get() {
@@ -35,7 +43,7 @@ public class IssueServiceImpl implements IssueService {
     }
 
     @Override
-    public IssueDto get(Long id) {
+    public IssueFullDto get(Long id) {
         return issueRepository.getUniq(id);
     }
 
@@ -43,7 +51,7 @@ public class IssueServiceImpl implements IssueService {
     public Issue create(OAuth2Authentication authentication,Issue issue) {
         issue.setCreated(new Date());
         List<Configuration> configurations = (List) configurationRepository.findAll();
-        issue.setIssueStatus(configurations.size() > 0 ? configurations.get(0).getIssueStatus() : null);
+        issue.setIssueStatus(configurations.size() > 0 ? configurations.get(0).getIssueStatusStart() : null);
         issue.setUser(userService.getUserAuth(authentication));
         return issueRepository.saveAndFlush(issue);
     }
@@ -57,6 +65,28 @@ public class IssueServiceImpl implements IssueService {
     }
 
     @Override
+    public Issue createDecision(OAuth2Authentication authentication, Long id, String decision) {
+        Issue issue=issueRepository.findById(id).get();
+        issue.setDecision(decision);
+        issue.setIssueStatus(configurationService.get().getIssueStatusClosed());
+        return issueRepository.save(issue);
+    }
+
+    @Override
+    public Issue updateStatus(OAuth2Authentication authentication, Long id, Long status) {
+        Issue issue=issueRepository.findById(id).get();
+        issue.setIssueStatus(issueStatusRepository.findById(status).get());
+        return issueRepository.save(issue);
+    }
+
+    @Override
+    public Issue updateWorker(OAuth2Authentication authentication, Long id, Long worker) {
+        Issue issue=issueRepository.findById(id).get();
+        issue.setWorker(workerRepository.findById(worker).get());
+        return issueRepository.save(issue);
+    }
+
+    @Override
     public Boolean delete(Long id) {
         Issue issue = issueRepository.findById(id).get();
         if (issue != null) {
@@ -67,11 +97,11 @@ public class IssueServiceImpl implements IssueService {
     }
 
     @Override
-    public Map<String, List<Issue>> getIssueForStatus() {
-        Map<String, List<Issue>> issueMap = new LinkedHashMap<>();
+    public Map<String, List<IssueDto>> getIssueForStatus() {
+        Map<String, List<IssueDto>> issueMap = new LinkedHashMap<>();
         List<IssueStatus> issueStatuses = (List) issueStatusRepository.findAll();
         for (IssueStatus issueStatus : issueStatuses) {
-            List<Issue> issues=new ArrayList(issueRepository.findIssueForStatus(issueStatus.getId()));
+            List<IssueDto> issues=new ArrayList(issueRepository.findIssueForStatus(issueStatus.getId()));
             issueMap.put(issueStatus.getName(),issues.size()<5?issues:issues.subList(0,5));
         }
         return issueMap;

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import sub.db.entity.Issue;
 import sub.db.entity.IssueStatus;
 import sub.db.repo.IssueStatusRepository;
+import sub.web.services.configuration.ConfigurationService;
 
 import java.util.List;
 
@@ -13,9 +14,21 @@ public class IssueStatusServiceImpl implements IssueStatusService {
     @Autowired
     private IssueStatusRepository issueStatusRepository;
 
+    @Autowired
+    private ConfigurationService configurationService;
+
     @Override
     public List<IssueStatus> get() {
         return (List<IssueStatus>) issueStatusRepository.findAll();
+    }
+
+    @Override
+    public List<IssueStatus> getNotStart() {
+        List<IssueStatus>all= (List<IssueStatus>) issueStatusRepository.findAll();
+        if(configurationService.getConfiguration().getIssueStatusStart()!=null){
+            all.remove(configurationService.getConfiguration().getIssueStatusStart());
+        }
+        return all;
     }
 
     @Override

@@ -9,7 +9,7 @@ import sub.db.entity.IssueStatus;
 import sub.web.services.status.IssueStatusService;
 
 @Component
-@CrossOrigin(origins = { "http://localhost:8080","http://localhost:8081" }, maxAge = 3000)
+@CrossOrigin(origins = {"**"}, maxAge = 3000)
 @RequestMapping("/api/status")
 public class IssueStatusController {
     @Autowired
@@ -18,6 +18,11 @@ public class IssueStatusController {
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity get(){
         return new ResponseEntity(issueStatusService.get(),HttpStatus.OK);
+    }
+
+    @RequestMapping(method = RequestMethod.GET,value = "/notStart")
+    public ResponseEntity getNotStart(){
+        return new ResponseEntity(issueStatusService.getNotStart(),HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.POST)

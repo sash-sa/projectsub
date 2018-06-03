@@ -33,6 +33,12 @@ const getIssueForStatus=()=>client.get("/issue/status");
 
 const getIssueUniq=(id)=>client.get(`/issue/${id}`);
 
+const issueClosed=(id,decision)=>client.put(`/issue/${id}?decision=${decision}`)
+
+const issueEditStatus=(id,status)=>client.put(`/issue/${id}/${status}`)
+
+const issueEditWorker=(id,worker)=>client.put(`/issue/${id}/worker/${worker}`)
+
 const removeIssue=(id)=>client.delete(`/issue/${id}`);
 
 const editIssue=(issue)=>client.put("/issue",issue);
@@ -57,6 +63,8 @@ const createStatus=(status)=>client.post("/status",status);
 
 const  getStatus=()=>client.get("/status");
 
+const  getStatusnotStart=()=>client.get("/status/notStart");
+
 const editStatus=(status)=>client.put("/status",status);
 
 const removeStatus=(id)=>client.delete(`/status/${id}`)
@@ -69,7 +77,11 @@ const removeOperator=(id)=>client.delete(`/operator/${id}`)
 
 const editOperator=(operator)=>client.put("/operator",operator);
 
-const getRole=()=>client.get("/operator/role")
+const getRole=()=>client.get("/operator/role");
+
+const  getConfiguration=()=>client.get("/configuration");
+
+const editConfiguration=(configuration)=>client.put("/configuration",configuration);
 
 const auth = (payload) => client.request({
   headers: {
@@ -91,6 +103,9 @@ export default {
   getIssue,
   getIssueForStatus,
   getIssueUniq,
+  issueClosed,
+  issueEditStatus,
+  issueEditWorker,
   removeIssue,
   editIssue,
   createIssue,
@@ -103,13 +118,16 @@ export default {
   editPosition,
   createStatus,
   getStatus,
+  getStatusnotStart,
   editStatus,
   removeStatus,
   getOperator,
   createOperator,
   removeOperator,
   editOperator,
-  getRole
+  getRole,
+  getConfiguration,
+  editConfiguration
 };
 
 

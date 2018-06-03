@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Index from '@/components/Index';
+import BaseConfiguration from '@/components/BaseConfiguration';
 import Shedule from '@/components/Shedule';
 import Report from '@/components/Report';
 import IssueView from '@/components/Issue/IssueView';
@@ -90,6 +91,11 @@ const router = new Router({
       path: "/createOperator",
       name: "CreateOperator",
       component: CreateOperator
+    },
+    {
+      path: "/baseConfiguration",
+      name: "BaseConfiguration",
+      component: BaseConfiguration
     },
   ]
 })

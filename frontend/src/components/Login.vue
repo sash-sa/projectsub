@@ -43,6 +43,9 @@
       </v-container>
 
     </v-content>
+    <v-footer color="blue darken-2" height="90" app>
+      <span class="white--text">&copy; {{oldYear}}</span>
+    </v-footer>
   </v-app>
 </template>
 

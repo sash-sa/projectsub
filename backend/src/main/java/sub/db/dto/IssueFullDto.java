@@ -18,9 +18,13 @@ public interface IssueFullDto {
 
     Date getUpdate();
 
+    Date getTimeExecution();
+
     String getTheme();
 
     String getDescription();
+
+    String getDecision();
 
     @Value("#{target.issueStatus}")
     IssueStatusForIssueFull getIssueStatus();

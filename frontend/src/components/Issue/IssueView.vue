@@ -17,9 +17,10 @@ l
           <td class="text-xs-left">{{ props.item.description }}</td>
           <td class="text-xs-left">{{ props.item.issueStatus != null ? props.item.issueStatus.name : '' }}</td>
           <td class="text-xs-left">{{ props.item.worker != null ? props.item.worker.fullName : ''}}</td>
+          <td class="text-xs-left">{{ dateConvert(props.item.timeExecution)}}</td>
           <td class="text-xs-left">{{ props.item.user != null ? props.item.user.login : ''}}</td>
-          <td class="text-xs-left">{{ dateConvert(props.item.created)}}</td>
-          <td class="text-xs-left">{{ dateConvert(props.item.update)}}</td>
+          <td class="text-xs-left">{{ dateTimeConvert(props.item.created)}}</td>
+          <td class="text-xs-left">{{ dateTimeConvert(props.item.update)}}</td>
           <td class="text-xs-center">
             <v-btn fab dark small color="primary" @click="remove(props.item)">
               <v-icon dark>remove</v-icon>
@@ -28,6 +29,11 @@ l
               <v-icon dark>edit</v-icon>
             </v-btn>
           </td>
+        </template>
+        <template slot="no-data">
+          <v-alert :value="true" color="success">
+            Данных нет
+          </v-alert>
         </template>
       </v-data-table>
       <v-dialog v-model="dialogDel" max-width="500px">
@@ -82,6 +88,27 @@ l
               item-value="id"
               label="Исполнитель"
             ></v-select>
+            <v-menu
+              ref="menu2"
+              :close-on-content-click="false"
+              v-model="menu2"
+              :nudge-right="40"
+              :return-value.sync="date"
+              lazy
+              transition="scale-transition"
+              offset-y
+              full-width
+              min-width="290px"
+            >
+              <v-text-field
+                slot="activator"
+                v-model="timeExecution"
+                label="Срок исполнения"
+                prepend-icon="event"
+                readonly
+              ></v-text-field>
+              <v-date-picker v-model="timeExecution" @input="$refs.menu2.save(date)"></v-date-picker>
+            </v-menu>
             <v-btn @click="editSucess">Сохранить</v-btn>
             <v-btn @click="editCancel">Отмена</v-btn>
           </v-form>
@@ -106,6 +133,7 @@ l
           {text: 'Описание', value: 'description', align: "center"},
           {text: 'Статус', value: 'issueStatus', align: "center"},
           {text: 'Исполнитель', value: 'worker', align: "center"},
+          {text: 'Срок исполнения', value: 'timeExecution', align: "center"},
           {text: 'Оператор', value: 'user', align: "center"},
           {text: 'Дата создания', value: 'created', align: "center"},
           {text: 'Дата обновления', value: 'update', align: "center"},
@@ -123,7 +151,8 @@ l
         status: null,
         statusSelected: null,
         worker: null,
-        workerSelected: null
+        workerSelected: null,
+        timeExecution:null
       }
     },
     methods: {
@@ -173,6 +202,7 @@ l
         })
         if (this.selectedItem.issueStatus != null) this.statusSelected = this.selectedItem.issueStatus.id;
         if (this.selectedItem.worker != null) this.workerSelected = this.selectedItem.worker.id;
+        this.timeExecution=this.selectedItem.timeExecution;
         this.dialogEdit = true;
       },
       editSucess() {
@@ -186,7 +216,8 @@ l
           description: this.description,
           issueStatus: this.statusSelected != null ? {id: this.statusSelected} : null
           ,
-          worker: this.workerSelected != null ? {id: this.workerSelected} : null
+          worker: this.workerSelected != null ? {id: this.workerSelected} : null,
+          timeExecution:this.timeExecution!=null?new Date(this.timeExecution):null
 
         }
 
@@ -200,10 +231,17 @@ l
       editCancel() {
         this.dialogEdit = false;
       },
-      dateConvert(value) {
+      dateTimeConvert(value) {
         if (value != null) {
           var date = new Date(Date.parse(value, "dd/MM/yyyy"));
           return date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes();
+        }
+        return "";
+      },
+      dateConvert(value) {
+        if (value != null) {
+          var date = new Date(Date.parse(value, "dd/MM/yyyy"));
+          return date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
         }
         return "";
       }

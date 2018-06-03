@@ -12,7 +12,11 @@ public class Configuration {
 
     @ManyToOne
     @JoinColumn(name = "issue_status_create")
-    private IssueStatus issueStatus;
+    private IssueStatus issueStatusStart;
+
+    @ManyToOne
+    @JoinColumn(name = "issue_status_closed")
+    private IssueStatus issueStatusClosed;
 
     public Long getId() {
         return Id;
@@ -22,11 +26,19 @@ public class Configuration {
         Id = id;
     }
 
-    public IssueStatus getIssueStatus() {
-        return issueStatus;
+    public IssueStatus getIssueStatusStart() {
+        return issueStatusStart;
     }
 
-    public void setIssueStatus(IssueStatus issueStatus) {
-        this.issueStatus = issueStatus;
+    public void setIssueStatusStart(IssueStatus issueStatusStart) {
+        this.issueStatusStart = issueStatusStart;
+    }
+
+    public IssueStatus getIssueStatusClosed() {
+        return issueStatusClosed;
+    }
+
+    public void setIssueStatusClosed(IssueStatus issueStatusClosed) {
+        this.issueStatusClosed = issueStatusClosed;
     }
 }

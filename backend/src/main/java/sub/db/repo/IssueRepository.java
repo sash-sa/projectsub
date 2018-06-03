@@ -20,9 +20,9 @@ public interface IssueRepository extends JpaRepository<Issue,Long> {
 
     @EntityGraph(attributePaths = {"issueStatus","worker"})
     @Query("select issue from Issue issue where issue.id= :id")
-    IssueDto getUniq(@Param("id") Long aLong);
+    IssueFullDto getUniq(@Param("id") Long aLong);
 
     @EntityGraph(attributePaths = {"worker"})
     @Query("select issue from Issue issue where issue.issueStatus.id= :status ")
-    List<Issue> findIssueForStatus(@Param("status") Long status);
+    List<IssueDto> findIssueForStatus(@Param("status") Long status);
 }
