@@ -7,6 +7,7 @@ import sub.db.entity.Issue;
 import sub.db.entity.IssueStatus;
 import sub.db.entity.User;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -20,4 +21,5 @@ public interface IssueService {
     public Issue updateWorker(OAuth2Authentication authentication, Long id,Long worker);
     public Boolean delete(Long id);
     public Map<String,List<IssueDto>> getIssueForStatus();
+    public List<IssueFullDto> getIssueforWorker(Long worker);
 }

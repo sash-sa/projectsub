@@ -13,7 +13,7 @@ import sub.db.entity.IssueStatus;
 import sub.web.services.configuration.ConfigurationService;
 
 @Component
-@CrossOrigin(origins = {"**"}, maxAge = 3000)
+@CrossOrigin(origins = {"http://91.203.194.42:8088","*"}, maxAge = 3000)
 @RequestMapping("/api/configuration")
 public class ConfigurationController {
 

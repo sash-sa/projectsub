@@ -7,7 +7,6 @@
 <script>
   import Login from './components/Login';
   import Shablon from './components/Shablon';
-
   export default {
     name: 'App',
     components: {

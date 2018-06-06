@@ -67,7 +67,8 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     ]),
     new webpack.DefinePlugin({
       // 'API_BASE_URL': JSON.stringify("http://vckpmon.vckp.ru:8088/api")
-      'API_BASE_URL': JSON.stringify("http://localhost:8088/api")
+      'API_BASE_URL': JSON.stringify("http://91.203.194.42:8088/api")
+      // 'API_BASE_URL': JSON.stringify("http://localhost:8088/api")
     })
   ]
 })

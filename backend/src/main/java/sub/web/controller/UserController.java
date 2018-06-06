@@ -10,7 +10,7 @@ import sub.db.entity.User;
 import sub.web.services.operator.UserService;
 
 @Component
-@CrossOrigin(origins = {"**"}, maxAge = 3000)
+@CrossOrigin(origins = {"http://91.203.194.42:8088","*"}, maxAge = 3000)
 @RequestMapping("/api/operator")
 public class UserController {
     @Autowired

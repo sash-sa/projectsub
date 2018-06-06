@@ -9,7 +9,7 @@ import sub.db.entity.IssueStatus;
 import sub.web.services.status.IssueStatusService;
 
 @Component
-@CrossOrigin(origins = {"**"}, maxAge = 3000)
+@CrossOrigin(origins = {"http://91.203.194.42:8088","*"}, maxAge = 3000)
 @RequestMapping("/api/status")
 public class IssueStatusController {
     @Autowired

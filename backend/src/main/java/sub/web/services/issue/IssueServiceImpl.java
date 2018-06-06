@@ -106,4 +106,9 @@ public class IssueServiceImpl implements IssueService {
         }
         return issueMap;
     }
+
+    @Override
+    public List<IssueFullDto> getIssueforWorker(Long worker) {
+        return issueRepository.findDateToWorker(worker);
+    }
 }

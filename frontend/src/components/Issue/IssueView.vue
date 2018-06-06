@@ -152,7 +152,9 @@ l
         statusSelected: null,
         worker: null,
         workerSelected: null,
-        timeExecution:null
+        timeExecution:null,
+        date:null,
+        menu2:null
       }
     },
     methods: {

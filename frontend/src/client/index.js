@@ -39,6 +39,8 @@ const issueEditStatus=(id,status)=>client.put(`/issue/${id}/${status}`)
 
 const issueEditWorker=(id,worker)=>client.put(`/issue/${id}/worker/${worker}`)
 
+const getIssueForWorker=(worker)=>client.get(`/issue/worker/${worker}`)
+
 const removeIssue=(id)=>client.delete(`/issue/${id}`);
 
 const editIssue=(issue)=>client.put("/issue",issue);
@@ -93,7 +95,8 @@ const auth = (payload) => client.request({
   },
   method: "POST",
   // url: `http://vckpmon.vckp.ru:8088/oauth/token?username=${payload.login}&password=${payload.password}&grant_type=password`
-  url: `http://localhost:8088/oauth/token?username=${payload.login}&password=${payload.password}&grant_type=password`
+  // url: `http://localhost:8088/oauth/token?username=${payload.login}&password=${payload.password}&grant_type=password`
+  url: `http://91.203.194.42:8088/oauth/token?username=${payload.login}&password=${payload.password}&grant_type=password`
 })
 
 export default {
@@ -106,6 +109,7 @@ export default {
   issueClosed,
   issueEditStatus,
   issueEditWorker,
+  getIssueForWorker,
   removeIssue,
   editIssue,
   createIssue,
