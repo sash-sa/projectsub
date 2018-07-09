@@ -42,13 +42,12 @@ public class Issue implements Serializable{
     @Column(name = "decision")
     private String decision;
 
-
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "issue_Fk")
     private List<IssueComments> comments;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "status_id")
+    @JoinColumn(name = "status_fk")
     private IssueStatus issueStatus;
 
     @ManyToOne(fetch = FetchType.LAZY)

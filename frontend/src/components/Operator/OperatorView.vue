@@ -2,11 +2,11 @@
   <div>
     <v-btn color="primary" @click="create()">Создать</v-btn>
     <v-alert :value="deleteError" type="error">
-      Ошибка удаления.   К оператору привязаны запросы
+      Ошибка удаления. К оператору привязаны запросы
     </v-alert>
     <v-data-table
       :headers="headers"
-      :items="items"
+      :items="operatorItem"
       hide-actions
       class="elevation-1"
     >
@@ -70,12 +70,12 @@
 
 <script>
   import ajax from "../../client/index";
+  import {allObject} from "../Mixins/AllObject";
 
   export default {
-
+    mixins: [allObject],
     data() {
       return {
-        items: [],
         headers: [
           {text: 'Логин', value: 'login', align: "center"},
           {text: 'Полное имя', value: 'full_name', align: "center"},
@@ -93,13 +93,6 @@
       }
     },
     methods: {
-      getOperator() {
-        ajax.getOperator().then(response => {
-          this.items = response.data;
-        }).catch(error => {
-          console.log(error)
-        })
-      },
       getRole() {
         ajax.getRole().then(response => {
           this.role = response.data;
@@ -154,8 +147,7 @@
       editCancel() {
         this.dialogEdit = false;
       }
-    }
-    ,
+    },
     created() {
       this.getOperator();
     }

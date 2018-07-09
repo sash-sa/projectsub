@@ -95,8 +95,8 @@ const auth = (payload) => client.request({
   },
   method: "POST",
   // url: `http://vckpmon.vckp.ru:8088/oauth/token?username=${payload.login}&password=${payload.password}&grant_type=password`
-  // url: `http://localhost:8088/oauth/token?username=${payload.login}&password=${payload.password}&grant_type=password`
-  url: `http://91.203.194.42:8088/oauth/token?username=${payload.login}&password=${payload.password}&grant_type=password`
+  url: `http://localhost:8088/oauth/token?username=${payload.login}&password=${payload.password}&grant_type=password`
+  // url: `http://91.203.194.42:8088/oauth/token?username=${payload.login}&password=${payload.password}&grant_type=password`
 })
 
 export default {

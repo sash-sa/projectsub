@@ -4,7 +4,7 @@ l
     <v-btn color="primary" @click="create()">Создать</v-btn>
     <v-data-table
       :headers="headers"
-      :items="items"
+      :items="positionItem"
       hide-actions
       class="elevation-1"
     >
@@ -58,35 +58,27 @@ l
 <script>
 
   import ajax from "../../client/index";
+  import {allObject} from "../Mixins/AllObject";
 
   export default {
-
+    mixins: [allObject],
     data() {
       return {
         dialogEdit: false,
         dialogDel: false,
-        items: [],
         selectedItem: null,
         newName: "",
         newDescription: "",
         headers: [
           {text: 'Имя', value: 'name', sortable: false, align: "center"},
           {text: 'Описание', value: 'description', align: "center"},
-          {text: 'Действия',align: 'center'},
+          {text: 'Действия', align: 'center'},
         ]
       }
     },
     methods: {
       create() {
         this.$router.push("/createPosition")
-      },
-      get() {
-        ajax.getPosition().then(response => {
-          this.items = response.data
-        })
-          .catch(error => {
-            this.items = error
-          })
       },
       remove(id) {
         this.selectedItem = id;
@@ -98,8 +90,8 @@ l
           this.get();
         })
       },
-      removeCancel(){
-        this.dialogDel=false;
+      removeCancel() {
+        this.dialogDel = false;
       },
       editSucess() {
         this.dialogEdit = false;
@@ -107,7 +99,7 @@ l
           this.get();
         })
       },
-      editCancel(){
+      editCancel() {
         this.dialogEdit = false;
       },
       edit(id) {
@@ -118,7 +110,7 @@ l
       }
     },
     created() {
-      this.get();
+      this.getPosition();
     }
   }
 </script>

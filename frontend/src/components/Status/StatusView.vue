@@ -4,7 +4,7 @@
       <v-btn color="primary" @click="create()">Создать</v-btn>
       <v-data-table
         :headers="headers"
-        :items="items"
+        :items="statusItem"
         hide-actions
         class="elevation-1"
       >
@@ -62,12 +62,12 @@
 <script>
 
   import ajax from "../../client/index";
+  import {allObject} from "../Mixins/AllObject";
 
   export default {
-
+    mixins: [allObject],
     data() {
       return {
-        items: [],
         headers: [
           {text: 'Наименование', value: 'name', sortable: false, align: "center"},
           {text: 'Описание', value: 'description', align: "center"},
@@ -114,16 +114,9 @@
           console.log(error)
         })
       },
-      removeCancel(){
-        this.dialogDel=false;
+      removeCancel() {
+        this.dialogDel = false;
       },
-      getStatus() {
-        ajax.getStatus().then(response => {
-          this.items = response.data;
-        }).catch(error => {
-          console.log(error)
-        })
-      }
     },
     created() {
       this.getStatus();

@@ -5,7 +5,7 @@ l
       <v-btn color="primary" @click="create()">Создать</v-btn>
       <v-data-table
         :headers="headers"
-        :items="items"
+        :items="workerItem"
         hide-actions
         class="elevation-1"
       >
@@ -53,9 +53,9 @@ l
               label="Телефон"
               textarea
             ></v-text-field>
-            <v-select
+            <v-select fr
               v-model="positionsSelected"
-              :items="positions "
+              :items="positionItem"
               item-text="name"
               item-value="id"
               label="Должность"
@@ -75,12 +75,12 @@ l
 <script>
 
   import ajax from "../../client/index";
+  import {allObject} from "../Mixins/AllObject";
 
   export default {
-
+    mixins: [allObject],
     data() {
       return {
-        items: [],
         headers: [
           {text: 'ФИО', value: 'theme', sortable: false, align: "center"},
           {text: 'Телефон', value: 'description', align: "center"},
@@ -98,6 +98,7 @@ l
     },
     methods: {
       getPositions() {
+        this.getPosition().
         ajax.getPosition().then(response => {
           this.positions = response.data
           this.positionsSelected = this.selectedItem.position.map(x => {
@@ -151,14 +152,6 @@ l
         this.fio = this.selectedItem.fullName;
         this.phone = this.selectedItem.phone;
         this.getPositions();
-      },
-      getWorker() {
-        ajax.getWorker().then(response => {
-          this.items = response.data
-        })
-          .catch(error => {
-            this.items = error
-          })
       }
     },
     created() {
