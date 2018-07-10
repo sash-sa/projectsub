@@ -3,7 +3,7 @@
     <v-form style="text-align: center">
       <v-text-field
         v-model="fio"
-        label="ФИО"
+        label="ФИО" v-validate="'required'" name="fio" :error-messages="errors.collect('fio')"
       ></v-text-field>
       <v-text-field
         v-model="phone"
@@ -12,7 +12,7 @@
       ></v-text-field>
       <v-select
         v-model="positionsSelected"
-        :items="positions"
+        :items="positionItem"
         item-text="name"
         item-value="id"
         label="Должность"
@@ -28,47 +28,42 @@
 <script>
 
   import ajax from "../../client/index";
+  import {allObject} from "../Mixins/AllObject";
+
 
   export default {
-
+    mixins: [allObject],
     data() {
       return {
         fio: "",
         phone: "",
-        positions: [],
         positionsSelected: []
       }
     },
     methods: {
-      getPositions() {
-        ajax.getPosition().then(response => {
-          this.positions = response.data
-        })
-          .catch(error => {
-            console.log(error)
-          })
-      }
-      ,
       save() {
-        var worker = {
-          fullName: this.fio,
-          phone: this.phone,
-          position: this.positionsSelected.map(function (value, index, array) {
-            return {id: value}
-          })
-        }
-        ajax.createWorker(worker).then(response => {
-            this.$router.push("/worker")
-        }).catch(error => {
-          console.log(error)
+        this.$validator.validateAll().then((valid) => {
+          if(valid){
+            var worker = {
+              fullName: this.fio,
+              phone: this.phone,
+              position: this.positionsSelected.map(function (value, index, array) {
+                return {id: value}
+              })
+            }
+            ajax.createWorker(worker).then(response => {
+              this.$router.push("/worker")
+            }).catch(error => {
+              console.log(error)
+            })
+          }
         })
       }
     },
     created() {
-      this.getPositions()
+      this.getPosition();
+      this.$validator.validateAll();
     }
-
-
   }
 </script>
 

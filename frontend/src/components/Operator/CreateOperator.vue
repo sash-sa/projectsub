@@ -2,18 +2,18 @@
   <div>
     <v-form class="text-xs-center">
       <v-text-field
-        v-model="login"
-        label="Логин"
+        v-model="login" v-validate="'required'" name="login"
+        label="Логин" :error-messages="errors.collect('login')"
       ></v-text-field>
 
       <v-text-field
-        v-model="full_name"
-        label="Имя пользователя"
+        v-model="full_name" v-validate="'required'" name="full_name"
+        label="Имя пользователя" :error-messages="errors.collect('full_name')"
       ></v-text-field>
 
       <v-text-field
-        v-model="password"
-        label="Пароль" type="password"
+        v-model="password" v-validate="'required'" name="password"
+        label="Пароль" type="password" :error-messages="errors.collect('password')"
       ></v-text-field>
 
       <v-select
@@ -24,7 +24,7 @@
         item-value="id"
         item-text="name"
       ></v-select>
-      <v-btn @click="save()">Сохранить</v-btn>
+      <v-btn @click="create">Сохранить</v-btn>
     </v-form>
   </div>
 </template>
@@ -53,22 +53,27 @@
           console.log(error)
         })
       },
-      save() {
-        var user = {
-          login: this.login,
-          password: this.password,
-          fullName: this.full_name,
-          role: (this.selectRole != null ? this.selectRole.map(function (value) {
-            return {id: value}
-          }) : null)
-        }
-        ajax.createOperator(user).then(response=>{
-          this.$router.push("/operator")
+      create() {
+        this.$validator.validateAll().then((valid) => {
+          if (valid) {
+            var user = {
+              login: this.login,
+              password: this.password,
+              fullName: this.full_name,
+              role: (this.selectRole != null ? this.selectRole.map(function (value) {
+                return {id: value}
+              }) : null)
+            }
+            ajax.createOperator(user).then(response => {
+              this.$router.push("/operator")
+            })
+          }
         })
       }
     },
     created() {
       this.getRole();
+      this.$validator.validateAll();
     }
 
 

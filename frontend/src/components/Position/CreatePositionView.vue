@@ -4,6 +4,7 @@
       <v-text-field
         v-model="name"
         label="Имя"
+        v-validate="'required'" name="name" :error-messages="errors.collect('name')"
       ></v-text-field>
 
       <v-text-field
@@ -21,7 +22,6 @@
   import ajax from "../../client/index";
 
   export default {
-
     data() {
       return {
         theme:"",
@@ -30,14 +30,20 @@
     },
     methods: {
       create(){
-        ajax.createPosition(this.name,this.description).then(response=>{
-          this.$router.push("/position")
-        }).catch(error=>{
-          console.log(error)
+        this.$validator.validateAll().then((valid)=>{
+          if(valid){
+            ajax.createPosition(this.name,this.description).then(response=>{
+              this.$router.push("/position")
+            }).catch(error=>{
+              console.log(error)
+            })
+          }
         })
-
       }
     },
+    created(){
+      this.$validator.validateAll();
+    }
 
 
   }
