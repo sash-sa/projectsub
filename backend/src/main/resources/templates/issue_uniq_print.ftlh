@@ -2,26 +2,31 @@
 <head>
 </head>
 <body>
-<table>
+<table style="width: 100%">
     <tr>
-        <td>
-            Номер запроса
-        </td>
-        <td>
-        ${nomer}
+        <td colspan="2" style="text-align: center">
+            <h1><strong>Наряд заказ</strong></h1>
         </td>
     </tr>
     <tr>
         <td>
-            Тема запроса
+            <strong>Номер запроса</strong>
         </td>
         <td>
-        ${thema}
+        ${id}
         </td>
     </tr>
     <tr>
         <td>
-            Описание запроса
+            <strong>Тема запроса</strong>
+        </td>
+        <td>
+        ${theme}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <strong>Описание запроса</strong>
         </td>
         <td>
         ${description}
@@ -29,7 +34,7 @@
     </tr>
     <tr>
         <td>
-            Статус запроса
+            <strong>Статус запроса</strong>
         </td>
         <td>
         ${status}
@@ -37,23 +42,23 @@
     </tr>
     <tr>
         <td>
-            Исполнитель
+            <strong>Исполнитель</strong>
         </td>
         <td>
-        ${ispolnitel}
-        </td>
-    </tr>
-    <tr>
-        <td>
-            Заявитель
-        </td>
-        <td>
-        ${sayavitel}
+        ${worker}
         </td>
     </tr>
     <tr>
         <td>
-            Адрес заявителя
+            <strong>Заявитель</strong>
+        </td>
+        <td>
+        ${applicant}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <strong>Адрес заявителя</strong>
         </td>
         <td>
         ${adres}

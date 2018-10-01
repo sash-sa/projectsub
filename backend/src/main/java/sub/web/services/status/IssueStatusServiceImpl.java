@@ -23,9 +23,14 @@ public class IssueStatusServiceImpl implements IssueStatusService {
     }
 
     @Override
+    public List<IssueStatus> getForIndex() {
+        return (List<IssueStatus>) issueStatusRepository.getStatusForIndex();
+    }
+
+    @Override
     public List<IssueStatus> getNotStart() {
-        List<IssueStatus>all= (List<IssueStatus>) issueStatusRepository.findAll();
-        if(configurationService.getConfiguration().getIssueStatusStart()!=null){
+        List<IssueStatus> all = (List<IssueStatus>) issueStatusRepository.findAll();
+        if (configurationService.getConfiguration().getIssueStatusStart() != null) {
             all.remove(configurationService.getConfiguration().getIssueStatusStart());
         }
         return all;
@@ -33,19 +38,30 @@ public class IssueStatusServiceImpl implements IssueStatusService {
 
     @Override
     public IssueStatus created(IssueStatus issueStatus) {
-        return issueStatusRepository.save(issueStatus);
-    }
-
-    @Override
-    public IssueStatus update(IssueStatus issueStatus) {
+        Integer max = issueStatusRepository.maxNumber();
+        issueStatus.setNomer(max != null ? max : 1);
         issueStatusRepository.save(issueStatus);
         return issueStatus;
     }
 
     @Override
+    public IssueStatus update(IssueStatus issueStatus) {
+        issueStatus.setNomer(issueStatus.getNomer() != null ? issueStatus.getNomer() : issueStatusRepository.maxNumber());
+        issueStatusRepository.save(issueStatus);
+        return issueStatus;
+    }
+
+    @Override
+    public IssueStatus update(Long id, Integer nomer) {
+        IssueStatus issueStatus = issueStatusRepository.findById(id).get();
+        issueStatus.setNomer(nomer);
+        return issueStatusRepository.save(issueStatus);
+    }
+
+    @Override
     public Boolean deleted(Long id) {
-        IssueStatus issueStatus=issueStatusRepository.findById(id).get();
-        if(issueStatus!=null){
+        IssueStatus issueStatus = issueStatusRepository.findById(id).get();
+        if (issueStatus != null) {
             issueStatusRepository.delete(issueStatus);
             return true;
         }

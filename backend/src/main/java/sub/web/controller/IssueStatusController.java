@@ -20,6 +20,11 @@ public class IssueStatusController {
         return new ResponseEntity(issueStatusService.get(),HttpStatus.OK);
     }
 
+    @RequestMapping(method = RequestMethod.GET,value = "/index")
+    public ResponseEntity getIndex(){
+        return new ResponseEntity(issueStatusService.getForIndex(),HttpStatus.OK);
+    }
+
     @RequestMapping(method = RequestMethod.GET,value = "/notStart")
     public ResponseEntity getNotStart(){
         return new ResponseEntity(issueStatusService.getNotStart(),HttpStatus.OK);
@@ -33,6 +38,11 @@ public class IssueStatusController {
     @RequestMapping(method = RequestMethod.PUT)
     public ResponseEntity update(@RequestBody IssueStatus issueStatus){
         return new ResponseEntity(issueStatusService.update(issueStatus),HttpStatus.OK);
+    }
+
+    @RequestMapping(method = RequestMethod.PUT,value = "/{id}/{nomer}")
+    public ResponseEntity update(@PathVariable("id")Long id,@PathVariable("nomer") Integer nomer){
+        return new ResponseEntity(issueStatusService.update(id,nomer),HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.DELETE,value = "/{id}")

@@ -67,5 +67,9 @@ public class IssueController {
         return new ResponseEntity(issueService.getIssueforWorker(id), HttpStatus.OK);
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}/print")
+    public ResponseEntity getPrintForm(@PathVariable("id") Long id) {
+        return new ResponseEntity(issueService.print(id), HttpStatus.OK);
+    }
 
 }

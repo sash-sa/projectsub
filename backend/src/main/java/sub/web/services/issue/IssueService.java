@@ -22,4 +22,5 @@ public interface IssueService {
     public Boolean delete(Long id);
     public Map<String,List<IssueDto>> getIssueForStatus();
     public List<IssueFullDto> getIssueforWorker(Long worker);
+    public String print(Long id);
 }

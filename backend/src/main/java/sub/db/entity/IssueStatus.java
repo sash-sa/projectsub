@@ -14,6 +14,12 @@ public class IssueStatus {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "visibleForIndex")
+    private Boolean visibleForIndex;
+
+    @Column(name = "nomer")
+    private Integer nomer;
+
     public Long getId() {
         return id;
     }
@@ -36,5 +42,21 @@ public class IssueStatus {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Boolean getVisibleForIndex() {
+        return visibleForIndex;
+    }
+
+    public void setVisibleForIndex(Boolean visibleForIndex) {
+        this.visibleForIndex = visibleForIndex;
+    }
+
+    public Integer getNomer() {
+        return nomer;
+    }
+
+    public void setNomer(Integer nomer) {
+        this.nomer = nomer;
     }
 }
