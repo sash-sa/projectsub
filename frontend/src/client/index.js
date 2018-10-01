@@ -33,6 +33,8 @@ const getIssueForStatus=()=>client.get("/issue/status");
 
 const getIssueUniq=(id)=>client.get(`/issue/${id}`);
 
+const getPrintForm=(id)=>client.get(`/issue/${id}/print`);
+
 const issueClosed=(id,decision)=>client.put(`/issue/${id}?decision=${decision}`)
 
 const issueEditStatus=(id,status)=>client.put(`/issue/${id}/${status}`)
@@ -63,7 +65,11 @@ const createPosition=(name,description)=>client.post(`/position?name=${name}&des
 
 const createStatus=(status)=>client.post("/status",status);
 
+const setNomerStatus=(id,nomer)=>client.put(`/status/${id}/${nomer}`);
+
 const  getStatus=()=>client.get("/status");
+
+const  getStatusForIndex=()=>client.get("/status/index");
 
 const  getStatusnotStart=()=>client.get("/status/notStart");
 
@@ -106,6 +112,7 @@ export default {
   getIssue,
   getIssueForStatus,
   getIssueUniq,
+  getPrintForm,
   issueClosed,
   issueEditStatus,
   issueEditWorker,
@@ -122,9 +129,11 @@ export default {
   editPosition,
   createStatus,
   getStatus,
+  getStatusForIndex,
   getStatusnotStart,
   editStatus,
   removeStatus,
+  setNomerStatus,
   getOperator,
   createOperator,
   removeOperator,

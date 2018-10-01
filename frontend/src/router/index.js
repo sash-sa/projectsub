@@ -15,6 +15,7 @@ import Status from "@/components/Status/StatusView";
 import CreateStatus from "@/components/Status/CreateStatusView";
 import Operator from "@/components/Operator/OperatorView";
 import CreateOperator from "@/components/Operator/CreateOperator";
+import Kanban from "@/components/Kanban/KanbanView";
 import Store from '../store/index';
 
 Vue.use(Router)
@@ -97,6 +98,11 @@ const router = new Router({
       name: "BaseConfiguration",
       component: BaseConfiguration
     },
+    {
+      path: "/kanban",
+      name: "Kanban",
+      component: Kanban
+    }
   ]
 })
 router.beforeResolve((to, from, next) => {

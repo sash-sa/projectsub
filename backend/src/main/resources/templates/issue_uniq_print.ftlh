@@ -1,0 +1,64 @@
+<html>
+<head>
+</head>
+<body>
+<table>
+    <tr>
+        <td>
+            Номер запроса
+        </td>
+        <td>
+        ${nomer}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Тема запроса
+        </td>
+        <td>
+        ${thema}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Описание запроса
+        </td>
+        <td>
+        ${description}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Статус запроса
+        </td>
+        <td>
+        ${status}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Исполнитель
+        </td>
+        <td>
+        ${ispolnitel}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Заявитель
+        </td>
+        <td>
+        ${sayavitel}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Адрес заявителя
+        </td>
+        <td>
+        ${adres}
+        </td>
+    </tr>
+</table>
+</body>
+</html>

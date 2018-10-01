@@ -82,7 +82,6 @@
         {text: 'Заявки', path: '/issue', icon: "dialpad"},
         {text: 'Отчеты', path: '/report', icon: "report"},
         {text: 'Рассписание', path: '/schedule', icon: "call_split"},
-
         {
           text: 'Настройки',
           children: [
@@ -91,7 +90,8 @@
             {text: 'Должности', path: '/position', icon: "present_to_all"},
             {text: 'Операторы', path: '/operator', icon: "present_to_all"},
             {text: 'Статусы', path: '/status', icon: "present_to_all"},
-            {text: 'История', path: '/historyUpload', icon: "present_to_all"}
+            {text: 'История', path: '/historyUpload', icon: "present_to_all"},
+            {text: 'Главный экран', path: '/kanban', icon: "present_to_all"}
           ]
         }
       ]

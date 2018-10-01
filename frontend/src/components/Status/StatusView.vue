@@ -49,6 +49,11 @@
               label="Описание"
               textarea
             ></v-text-field>
+            <v-layout row>
+              <v-flex xs8 offset-xs4>
+                <v-switch v-model="visible" class="text-xs-center" label="Отображать на стартовом экране"/>
+              </v-flex>
+            </v-layout>
             <v-btn @click="editSucess">Сохранить</v-btn>
             <v-btn @click="editCancel">Отмена</v-btn>
           </v-form>
@@ -64,6 +69,7 @@
   import ajax from "../../client/index";
   import {allObject} from "../Mixins/AllObject";
 
+
   export default {
     mixins: [allObject],
     data() {
@@ -77,7 +83,50 @@
         dialogDel: false,
         selectedItem: null,
         name: "",
-        description: ""
+        description: "",
+        visible: false,
+        myArray:[
+          {
+            "name": "component",
+            "order": 3,
+            "fixed": false
+          },
+          {
+            "name": "for",
+            "order": 4,
+            "fixed": false
+          },
+          {
+            "name": "vue.draggable",
+            "order": 1,
+            "fixed": false
+          },
+          {
+            "name": "draggable",
+            "order": 2,
+            "fixed": false
+          },
+          {
+            "name": "based",
+            "order": 6,
+            "fixed": false
+          },
+          {
+            "name": "on",
+            "order": 7,
+            "fixed": false
+          },
+          {
+            "name": "vue.js 2.0",
+            "order": 5,
+            "fixed": false
+          },
+          {
+            "name": "Sortablejs",
+            "order": 8,
+            "fixed": false
+          }
+        ]
       }
     },
     methods: {
@@ -93,9 +142,10 @@
         this.name = this.selectedItem.name;
         this.description = this.selectedItem.description;
         this.dialogEdit = true;
+        this.visible=this.selectedItem.visibleForIndex;
       },
       editSucess() {
-        ajax.editStatus({id: this.selectedItem.id, name: this.name, description: this.description})
+        ajax.editStatus({id: this.selectedItem.id, name: this.name, description: this.description,visibleForIndex:this.visible})
           .then(response => {
             this.getStatus();
             this.dialogEdit = false;

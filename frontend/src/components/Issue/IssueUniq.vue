@@ -283,16 +283,20 @@
         this.dialogEditWorker=false;
       },
       print(){
-        var prtContent = document.getElementById("print");
         var WinPrint = window.open('','','left=50,top=50,width=800,height=640,toolbar=0,scrollbars=1,status=0');
-        WinPrint.document.write('<div id="print" class="contentpane">');
-        WinPrint.document.write(prtContent.innerHTML);
-        WinPrint.document.write('</div>');
-        WinPrint.document.close();
-        WinPrint.focus();
-        WinPrint.print();
-        WinPrint.close();
-        prtContent.innerHTML=strOldOne;
+
+        ajax.getPrintForm(this.$route.params.id).then(response=>{
+          var prtContent = document.getElementById("print");
+          WinPrint.document.write(response.data);
+          WinPrint.document.close();
+          WinPrint.focus();
+          WinPrint.print();
+          WinPrint.close();
+          prtContent.innerHTML=strOldOne;
+        })
+
+
+
       }
 
 
