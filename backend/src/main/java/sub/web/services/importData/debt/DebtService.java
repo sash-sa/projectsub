@@ -1,4 +1,7 @@
 package sub.web.services.importData.debt;
 
-public interface DebtService {
+import sub.db.entity.Debt;
+import sub.web.services.BaseService;
+
+public interface DebtService extends BaseService<Debt> {
 }
