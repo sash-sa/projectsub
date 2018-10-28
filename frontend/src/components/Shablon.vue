@@ -93,6 +93,12 @@
             {text: 'История', path: '/historyUpload', icon: "present_to_all"},
             {text: 'Главный экран', path: '/kanban', icon: "present_to_all"}
           ]
+        },
+        {
+          text: 'Импорт',
+          children: [
+            {text: 'Импорт задолжников', path: '/import/debt', icon: "present_to_all"},
+          ],
         }
       ]
     }),

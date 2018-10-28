@@ -16,6 +16,7 @@ import CreateStatus from "@/components/Status/CreateStatusView";
 import Operator from "@/components/Operator/OperatorView";
 import CreateOperator from "@/components/Operator/CreateOperator";
 import Kanban from "@/components/Kanban/KanbanView";
+import Debt from "@/components/Import/Debt"
 import Store from '../store/index';
 
 Vue.use(Router)
@@ -102,6 +103,10 @@ const router = new Router({
       path: "/kanban",
       name: "Kanban",
       component: Kanban
+    },
+    {
+      path: "/import/debt",
+      component: Debt
     }
   ]
 })

@@ -91,6 +91,12 @@ const  getConfiguration=()=>client.get("/configuration");
 
 const editConfiguration=(configuration)=>client.put("/configuration",configuration);
 
+const  getImportParam=(id)=>client.get(`/import/${id}`)
+
+const  saveImportDebtParam=(param)=>client.post(`/import`,param)
+
+const uploadFiles = (files,typ) => client.post(`/import/upload/${typ}`, files);
+
 const auth = (payload) => client.request({
   headers: {
     "Content-Type": "application/x-www-form-urlencoded"
@@ -140,7 +146,10 @@ export default {
   editOperator,
   getRole,
   getConfiguration,
-  editConfiguration
+  editConfiguration,
+  getImportParam,
+  saveImportDebtParam,
+  uploadFiles
 };
 
 
